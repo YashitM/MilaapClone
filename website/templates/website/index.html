@@ -1,6 +1,32 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-    <h1>Hello There</h1>
+    <div class="container">
+        <div class="row">
+            {% for cause in causes %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <a href="{% url 'website:show_details' cause.id %}" style="text-decoration: none; color: black;">
+                        <div class="card" style="width: 20rem;">
+                            <img class="card-img-top img-thumbnail img-responsive" src="{{ cause.title_image.url }}" alt="">
+                            <div class="card-block card-hover">
+                                <h4 class="card-title text-center">{{ cause.title_text }}</h4>
+                                <p class="card-text text-center">{{ cause.detailed_description | slice:":70"}}...</p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item"> <b>Rs</b> {{ cause.amount_goal }}</li>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio cause.already_funded cause.amount_goal 100 %}%">
+                                    </div>
+                                </div>
+                                <li class="list-group-item text-center"><span class="text-muted">by</span> {{ cause.post_creator }}</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                 {% if forloop.counter|divisibleby:"3" or forloop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
 {% endblock %}
 

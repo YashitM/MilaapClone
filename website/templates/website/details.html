@@ -1,0 +1,30 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {{ current_cause.title_text }}
+                <br>
+                {{ current_cause.detailed_description }}
+                <br>
+                {{ current_cause.amount_goal }}
+                <br>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio current_cause.already_funded current_cause.amount_goal 100 %}%">
+                    </div>
+                </div>
+                <br>
+                <img class="card-img-top img-thumbnail img-responsive" src="{{ current_cause.title_image.url }}" style="width: 200px; height: 200px;" alt="">
+                <form name="form" method="POST" action="" id="form">
+                    {% csrf_token %}
+                    <p style="text-align:center" class="text-error"></p>
+                    <p style="text-align:center;margin-top:20px">
+                        <input id="fund_amount" name="fund_amount" required="required" type="text">
+                        <button class="btn btn-primary" type="submit">Fund</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
