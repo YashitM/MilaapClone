@@ -1,30 +1,32 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                {{ current_cause.title_text }}
-                <br>
+    <div class="container content-container">
+        <center><div class="heading-text">{{ current_cause.title_text }}</div></center>
+        <center><img src="{{ current_cause.title_image.url }}" class="img-responsive img-thumbnail" style="margin-top: 20px; "></center>
+        <center><div class="funded-part"><b>Funded </b>{{ current_cause.already_funded }} <b>out of </b> {{ current_cause.amount_goal }}<b>Rs</b></div></center>
+{#        <center>#}
+{#            <div class="progress-bar-container">#}
+{#                <div class="progress">#}
+{#                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio current_cause.already_funded current_cause.amount_goal 100 %}%"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </center>#}
+        <center>
+            <div class="cause-description-container">
                 {{ current_cause.detailed_description }}
-                <br>
-                {{ current_cause.amount_goal }}
-                <br>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{% widthratio current_cause.already_funded current_cause.amount_goal 100 %}%">
-                    </div>
-                </div>
-                <br>
-                <img class="card-img-top img-thumbnail img-responsive" src="{{ current_cause.title_image.url }}" style="width: 200px; height: 200px;" alt="">
-                <form name="form" method="POST" action="" id="form">
+            </div>
+        </center>
+        <center>
+            <div class="form-container" align="center">
+                <form name="form" method="POST" action="" id="form" style=" display:inline!important;">
                     {% csrf_token %}
-                    <p style="text-align:center" class="text-error"></p>
-                    <p style="text-align:center;margin-top:20px">
-                        <input id="fund_amount" name="fund_amount" required="required" type="text">
-                        <button class="btn btn-primary" type="submit">Fund</button>
-                    </p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="fund_amount" placeholder="Enter Amount in Rs." name="fund_amount" required="required">
+                        <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Fund</button>
+                    </div>
                 </form>
             </div>
-        </div>
+        </center>
     </div>
 {% endblock %}
